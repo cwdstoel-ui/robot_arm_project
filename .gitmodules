@@ -1,0 +1,3 @@
+[submodule "Servo-Driver-with-ESP32"]
+	path = Servo-Driver-with-ESP32
+	url = https://github.com/waveshare/Servo-Driver-with-ESP32.git
