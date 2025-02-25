@@ -1,6 +1,4 @@
-[submodule "Servo-Driver-with-ESP32"]
-	path = Servo-Driver-with-ESP32
-	url = https://github.com/waveshare/Servo-Driver-with-ESP32.git
+
 [submodule "SO-ARM100"]
 	path = SO-ARM100
 	url = https://github.com/TheRobotStudio/SO-ARM100.git
