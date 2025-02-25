@@ -1,20 +1,18 @@
 # Robotarm AI
-
-
-
+[Link naar robot website waar dit op gebaseerd is](https://github.com/huggingface/lerobot?tab=readme-ov-file)
+[robot hardware](https://github.com/TheRobotStudio/SO-ARM100)
 ## Getting started
 - [ ] how to to control servos from USB with ESP board: [Arduino IDE ESP USB passthrough](https://files.waveshare.com/upload/f/f4/ST3215_Servo_User_Manual.pdf)
 - [ ] install [VCP drivers](https://randomnerdtutorials.com/install-esp32-esp8266-usb-drivers-cp210x-windows/) for the spe32 board
 - [ ] [servo datasheet](https://files.waveshare.com/upload/f/f4/ST3215_Servo_User_Manual.pdf) 
+- program USB passtrough with 1000000 baudrate. the python library talks this baudrate
 
+## things not to forget
+- [ ] [rerun visiualization issues](https://github.com/rerun-io/rerun/blob/main/docs/content/getting-started/troubleshooting.md#running-on-wsl2-ubuntu)
 ## Add your files
 
 
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://git.fhict.nl/I871933/robotarm-ai/-/settings/integrations)
-
+K
 ## Collaborate with your team
 
 - [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
