@@ -7,12 +7,46 @@
 - [ ] [servo datasheet](https://files.waveshare.com/upload/f/f4/ST3215_Servo_User_Manual.pdf) 
 - program USB passtrough with 1000000 baudrate. the python library talks this baudrate
 
+to activate stuff
+
+conda activate lerobot
+follower is on USB0
+https://github.com/huggingface/lerobot/blob/main/examples/10_use_so100.md
+
+use usbipd to attach the USB ports to Linux and then get the correct USB ports. CHECK before running calibs!
+leader = USB0 busid 5-2, USB 2nd left from HDMI
+follower = USB1, bus id 5-3 , USB connector left from HDMI
+to get baudrate ok as we use ESP 32 
+adapt porthandler.py :
+DEFAULT_BAUDRATE = 115_200
+C:\Users\peter\anaconda3\envs\lerobot\Lib\site-packages\scservo_sdk
+BOTH leader and followe should be calibrated. otherwise lots of errors in calibration.
+python lerobot/scripts/control_robot.py   --robot.type=so100   --robot.cameras='{}'   --control.type=calibrate   --control.arms='["main_follower"]'
+
+
+
+or main_leader
+
+python lerobot/scripts/control_robot.py --robot.type=so100 --robot.cameras='{}'--control.type=teleoperate
 ## things not to forget
-- [ ] [rerun visiualization issues](https://github.com/rerun-io/rerun/blob/main/docs/content/getting-started/troubleshooting.md#running-on-wsl2-ubuntu)
+- [ ] [rerun visiualization issues](https://github.com/rerun-io/rerun/blob/main/docs/content/getting-started/troubleshooting.
+## WINDOWS DOESNT WORK< USE WSL>
+On windows the teleoperate doesnt work, it gives error in the communication. Cause is not clear.
+In order to save time, a swich is made (back) to Lunux (WSL). it does however not have default camera support :(, so we need to build a kernel with support for the camera.
+in order to get everything working (camera) you need the usb camera
+build the kernel with camera : https://github.com/Xuanhoang214/WSL2-USB-CAMERA 
+
+
+md#running-on-wsl2-ubuntu)
 ## Add your files
+test
 
-
-K
+## WINDOWS
+- download and install anaconda : https://www.anaconda.com/download/success
+- Add `C:\Users\<your_username>\anaconda3\Scripts` to PATH in windows environment variables
+- Or open Anaconda Prompt from Start Menu instead of regular command prompt
+- Restart terminal after making changes
+ python lerobot/scripts/control_robot.py   --robot.type=so100   --robot.cameras='{}'   --control.type=teleoperate
 ## Collaborate with your team
 
 - [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
