@@ -1,30 +1,28 @@
-
-
-
-
-
 #include <Arduino.h>
+#include "servo.h"
+#include "ESP-NOW.h"
+#include "wifi_server.h"
  // WIFI_AP settings.
-const char* AP_SSID = "ESP32_DEV";
-const char* AP_PWD  = "12345678";
+//const char* AP_SSID = "ESP32_DEV";
+//const char* AP_PWD  = "12345678";
 
 // WIFI_STA settings.
-const char* STA_SSID = "OnePlus 8";
-const char* STA_PWD  = "40963840";
+//const char* STA_SSID = "OnePlus 8";
+//const char* STA_PWD  = "40963840";
 
 // the MAC address of the device you want to ctrl.
-uint8_t broadcastAddress[] = {0x08, 0x3A, 0xF2, 0x93, 0x5F, 0xA8};
+//uint8_t broadcastAddress[] = {0x08, 0x3A, 0xF2, 0x93, 0x5F, 0xA8};
 // uint8_t broadcastAddress[] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 
-typedef struct struct_message {
-  int ID_send;
-  int POS_send;
-  int Spd_send;
-} struct_message;
+//typedef struct struct_message {
+  //int ID_send;
+  //int POS_send;
+  //int Spd_send;
+//} struct_message;
 
 // Create a struct_message called myData
-struct_message myData;
+//struct_message myData;
 
 // set the default role here.
 // 0 as normal mode.
@@ -44,20 +42,20 @@ struct_message myData;
 
 // the IIC used to control OLED screen.
 // GPIO 21 - S_SDA, GPIO 22 - S_SCL, as default.
-#define S_SCL 22
-#define S_SDA 21
+//#define S_SCL 22
+//#define S_SDA 21
 
 // the GPIO used to control RGB LEDs.
 // GPIO 23, as default.
-#define RGB_LED   23
-#define NUMPIXELS 10
+//#define RGB_LED   23
+//#define NUMPIXELS 10
 
 // set the max ID.
-int MAX_ID = 20;
+// int MAX_ID = 20;
 
 // modeSelected.
 // set the SERIAL_FORWARDING as true to control the servos with USB.
-bool SERIAL_FORWARDING = true;
+//bool SERIAL_FORWARDING = true;
 
 // OLED Screen Dispaly.
 // Row1: MAC address.
@@ -67,12 +65,12 @@ bool SERIAL_FORWARDING = true;
 //       DEFAULT_WIFI_MODE: 1-[AP]/ 2-[STA][RSSI] / 3-[TRY:SSID].
 //       (no matter what wifi mode you select, you can always ctrl it via ESP-NOW.)
 // Row4: the position of servo 1, 2 and 3.
-String MAC_ADDRESS;
-IPAddress IP_ADDRESS;
-byte   SERVO_NUMBER;
-byte   DEV_ROLE;
-byte   WIFI_MODE;
-int    WIFI_RSSI;
+//String MAC_ADDRESS;
+//IPAddress IP_ADDRESS;
+//byte   SERVO_NUMBER;
+//byte   DEV_ROLE;
+//byte   WIFI_MODE;
+//int    WIFI_RSSI;
 
 // set the interval of the threading.
 #define threadingInterval 600
@@ -89,63 +87,44 @@ int    WIFI_RSSI;
 // #include "CONNECT.h"
 // #include "BOARD_DEV.h"
 
-
+SMS_STS st;
 void setup() {
+    
   Serial.begin(115200);
-  while(!Serial) {}
-  Serial1.begin(1000000, SERIAL_8N1, S_RXD, S_TXD);
-
-  while(!Serial1) {}
-
-  // delay(1000);
-
-  // espNowInit();
-
-  // getMAC();
   
-  // boardDevInit();
+  Serial1.begin(1000000, SERIAL_8N1, S_RXD, S_TXD);
+  st.pSerial = &Serial1;
+  
+  wifi_init();
 
-  // RGBcolor(0, 64, 255);
+  //client_init();
 
+  ESP_NOW_WiFi_init();
+ 
+  ESP_add_peer();
 
-
-  // servoInit();
-
-  // wifiInit();
-
-  // webServerSetup();
-
-  // RGBoff();
-
-  // delay(1000);
-
-  // pingAll(true);
-
-  // threadInit();
+ 
+  ESP_callback();
+ 
+   
 }
 
 
 void loop() {
-  int usbRead;
-  int stsRead;
-  if (Serial.available()){
-    usbRead = Serial.read();
-    Serial1.write(usbRead);
-  }
-  if (Serial1.available()){
-    stsRead = Serial1.read();
-    Serial.write(stsRead);
-  }
+   
 
-  // st.WritePosEx(1, 25, 600, 0);
-  // st.WritePosEx(2, 25, 600, 0);
-  // st.WritePosEx(3, 25, 600, 0);
-  // delay(2000);
+check_Servo();
 
-  // st.WritePosEx(1, 1000, 600, 0);
-  // st.WritePosEx(2, 1000, 600, 0);
-  // st.WritePosEx(3, 1000, 600, 0);
-  // delay(2000);
+ReadPos_Servo();
+
+ReadSpeed_Servo();
+
+ESP_Send();
+
+get_client_data();
+
+
+   
 }
 
 

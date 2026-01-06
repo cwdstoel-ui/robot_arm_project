@@ -287,34 +287,34 @@ void OnDataRecv(const unsigned char * mac, const uint8_t *incomingData, int len)
 }
 
 
-void espNowInit(){
+//void espNowInit(){
   // Set device as a Wi-Fi Station
-  WiFi.mode(WIFI_STA);
+  //WiFi.mode(WIFI_STA);
 
   // Init ESP-NOW
-  if (esp_now_init() != ESP_OK) {
-    Serial.println("Error initializing ESP-NOW");
-    return;
-  }
+  //if (esp_now_init() != ESP_OK) {
+    //Serial.println("Error initializing ESP-NOW");
+    //return;
+  //}
 
   // Once ESPNow is successfully Init, we will register for Send CB to
   // get the status of Trasnmitted packet
-  esp_now_register_send_cb(OnDataSent);
-  esp_now_register_recv_cb(OnDataRecv);
+  //esp_now_register_send_cb(OnDataSent);
+  //esp_now_register_recv_cb(OnDataRecv);
 
   // Register peer
-  esp_now_peer_info_t peerInfo;
-  memcpy(peerInfo.peer_addr, broadcastAddress, 6);
-  peerInfo.channel = 0;  
-  peerInfo.encrypt = false;
+  //esp_now_peer_info_t peerInfo;
+  //memcpy(peerInfo.peer_addr, broadcastAddress, 6);
+  //peerInfo.channel = 0;  
+  //peerInfo.encrypt = false;
   
   // Add peer        
-  if (esp_now_add_peer(&peerInfo) != ESP_OK){
-    Serial.println("Failed to add peer");
-    return;
-  }
+  //if (esp_now_add_peer(&peerInfo) != ESP_OK){
+    //Serial.println("Failed to add peer");
+    //return;
+  //}
 
-  MAC_ADDRESS = WiFi.macAddress();
-  Serial.print("MAC:");
-  Serial.println(WiFi.macAddress());
-}
+  //MAC_ADDRESS = WiFi.macAddress();
+  //Serial.print("MAC:");
+  //Serial.println(WiFi.macAddress());
+//}
